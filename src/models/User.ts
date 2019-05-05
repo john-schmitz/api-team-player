@@ -1,0 +1,1 @@
+export default [{nome: "john" , email: "johngc2010@hotmail.com", nomeOrganizacao: "NicegyuCO"}]
