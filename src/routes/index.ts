@@ -10,7 +10,7 @@ class Routes {
   defineRoutes() {
     this.Router.get('/', (req,res)=> {
       res.status(200)
-      res.send({ message:"bom dia Xd"})
+      res.send({ message:"Bem vindo a nossa API =)"})
     })
 
     this.Router.use(userRoutes);
