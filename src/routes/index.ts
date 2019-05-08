@@ -10,11 +10,6 @@ class Routes {
     this.defineRoutes()
   }
   defineRoutes() {
-    this.Router.get('/', (req,res)=> {
-      res.status(200)
-      res.send({ message:"Bem vindx a nossa API =)"});
-    });
-
     this.Router.use(userRoutes);
     this.Router.use(feedRoutes);
   }

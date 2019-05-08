@@ -2,7 +2,7 @@ import express from 'express';
 import Routes from './routes';
 import bodyParser from 'body-parser';
 import {createConnection} from 'typeorm';
-
+import path from "path";
 export class App {
   public express: express.Express
 
@@ -13,6 +13,7 @@ export class App {
     .catch(error => {
       console.log(error)
     })
+    this.staticPages()
     this.mountMiddleware()
     this.mountRoutes()
   }
@@ -24,7 +25,12 @@ export class App {
   private mountRoutes() {
     this.express.use(Routes)
   }
-
+  private staticPages() {
+    const ss = path.join(__dirname + '/..', 'public')
+    console.log(ss);
+    
+    this.express.use(express.static(ss));
+  }
   private databaseURL(): any{
     const info = {      
       synchronize: true,
