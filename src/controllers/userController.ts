@@ -1,15 +1,14 @@
-import users from '../models/User'
+import "reflect-metadata"
+import {getRepository} from 'typeorm'
+import {User} from '../models/entity/User'
 
-class userController {
+export class UserController {
 
-  constructor() {
+  public async getAllUsers() {
+    return await getRepository(User).find();
   }
-
-  public getAllUsers() {
-    return users;
-  }
+  
   public add(user:any){
-    users.push(user)
+    
   }
 }
-export default new userController()
