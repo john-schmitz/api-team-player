@@ -40,10 +40,23 @@ export class App {
   }
 
   private databaseURL(): any{
+    const info = {      
+      synchronize: true,
+      logging: true,
+      entities: [
+         "dist/models/entity/*.js"
+      ],
+      cli: {
+        entitiesDir: "src/models/entity",
+        migrationsDir: "src/migration",
+        subscribersDir: "src/subscriber"
+      }
+    }
     if(process.env.DATABASE_URL) {
       return {
         type: 'postgres',
-        url: process.env.DATABASE_URL
+        url: process.env.DATABASE_URL,
+        ...info
       }
     }
     return {
@@ -53,16 +66,7 @@ export class App {
       username: "postgres",
       password: "test",
       database: "test",
-      synchronize: true,
-      logging: true,
-      entities: [
-         "dist/models/entity/*.js"
-      ],
-      cli: {
-         entitiesDir: "src/models/entity",
-         migrationsDir: "src/migration",
-         subscribersDir: "src/subscriber"
-      }
+      ...info
     }
   } 
 }
