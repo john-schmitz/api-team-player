@@ -20,11 +20,12 @@ export class App {
           console.log(error);
         },
       );
+    
+    this.moutHelmtet();
     this.staticPages();
     this.mountMiddleware();
     this.mountRoutes();
     this.moutSwagger();
-    this.moutHelmtet();
   }
 
   private moutHelmtet(): void {
