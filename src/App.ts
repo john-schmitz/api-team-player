@@ -31,19 +31,7 @@ export class App {
   private moutHelmtet(): void {
     this.express.use(
       helmet({
-        featurePolicy: {
-          features: {
-            notifications: ["'none'"],
-          },
-        },
         hidePoweredBy: true,
-        contentSecurityPolicy: {
-          directives: {
-            defaultSrc: ["'self'"],
-          },
-        },
-        referrerPolicy: true,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any),
     );
   }
