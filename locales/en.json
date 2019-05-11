@@ -1,0 +1,7 @@
+{
+    "titulo": "Example of internationalization",
+    "exemplo": {
+        "descricao": "Using english",
+        "atributo": "Example of how to use in attributes"
+    }
+}

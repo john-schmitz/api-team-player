@@ -1,17 +1,16 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity()
-export class Match extends BaseEntity{
-    @PrimaryGeneratedColumn()
-    id: Number
+export class Match extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  public id: number;
 
-    @Column()
-    team1: String
+  @Column()
+  public team1: string;
 
-    @Column()
-    team2: String
+  @Column()
+  public team2: string;
 
-    @Column()
-    date: Date
-
+  @Column()
+  public date: Date;
 }

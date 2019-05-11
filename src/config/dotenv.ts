@@ -1,9 +1,8 @@
 class Config {
-
-  public portaAPI:String
-  constructor(){
-    this.portaAPI = process.env.PORT || "8000"
+  public portaAPI: string;
+  public constructor() {
+    this.portaAPI = process.env.PORT || '8000';
   }
 }
 
-export default new Config()
+export default new Config();
