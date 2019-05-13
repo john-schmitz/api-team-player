@@ -60,11 +60,12 @@ class UserController {
   public async getFeed(id: number): Promise<any[]> {
     const feed: any[] | PromiseLike<any[]> = [];
     const user = await this.findUserById(id);
-    const matchArray = await Match.findByIds(user.matchesId);
-    if(matchArray.length)
+    if(user.matchesId) {
+      const matchArray = await Match.findByIds(user.matchesId);
       for (let index = 0; index < matchArray.length; index++) {
         feed.push(...(await Update.find({ where: { match: matchArray[index] } })));
       }
+    }
     return feed;
   }
 }
