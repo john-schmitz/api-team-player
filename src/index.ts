@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-import { App } from './App';
+import { Api } from './Api';
 import CONFIG from './config/dotenv';
 
-const app = new App().express;
+const app = new Api().express;
 
 app.listen(
   CONFIG.portaAPI,

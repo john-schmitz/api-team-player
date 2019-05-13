@@ -13,19 +13,24 @@
     "dev": "node --require ./config .",
     "dev:watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "i18n": "gulp i18n"
+    "i18n": "grunt i18n"
   },
   "dependencies": {
-    "@types/swagger-ui-express": "^3.0.0",
+    "@types/bcrypt": "^3.0.0",
     "@types/bluebird": "^3.5.26",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.16.1",
     "@types/helmet": "0.0.43",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/swagger-ui-express": "^3.0.0",
     "@types/validator": "^10.11.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
     "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^7.10.0",
     "pg-hstore": "^2.3.2",
     "reflect-metadata": "^0.1.13",
@@ -42,14 +47,18 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/express-jwt": "0.0.42",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
+    "grunt": "^1.0.4",
+    "grunt-i18n-static": "^0.1.14",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.0",
-    "prettier": "^1.17.0"
+    "prettier": "^1.17.0",
+    "static-i18n": "^0.2.2"
   },
   "nodemonConfig": {
     "ignore": [

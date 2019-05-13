@@ -3,5 +3,33 @@
     "exemplo": {
         "descricao": "Using english",
         "atributo": "Example of how to use in attributes"
-    }
+    },
+
+    "Senha": "Password",
+    "Entrar": "Login",
+    "Registrar": "Register",
+    "Esqueci-Senha": "Forgot password?",
+    "Partidas": "Matches",
+
+    "Editar-acontecimentos": "Edit occurrences",
+    "Placar": "Score",
+    "Penalti": "Penalty",
+    "Cartao-vermelho": "Red card",
+    "Falta": "Foul",
+    "Cartao-amarelo": "Yellow card",
+    "Mensagem": "Message",
+    "Enviar": "Send",
+    "Adicionar-acontecimento": "Add occurrence",
+    "Modalidade": "Modality: ",
+    "Local": "Where: ",
+    "Acao": "Action",
+    "Substituicao": "Replacement",
+    "Insira-Acao": "Insert action",
+    "Gol": "Goal",
+    "Ja-tem-Login": "Already have a login?",
+    "Nome-Org": "Organization Name",
+    "Nome": "Name",
+    "Email-Existe": "E-mail already registered",
+    "Inserir-Local": "Insert place", 
+    "Data": "Date"
 }

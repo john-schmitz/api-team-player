@@ -27,9 +27,10 @@
 						"examples": {
 							"application/json": {
 								"id": 1,
-								"nome": "John",
+								"name": "John",
 								"email": "JohnGC@gmail.com",
-								"nomeOrganizacao": "Cool Org"
+								"nameOrganization": "Cool Org",
+								"password": "123"
 							}
 						}
 					}

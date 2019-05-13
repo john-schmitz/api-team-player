@@ -3,5 +3,24 @@
     "exemplo": {
         "descricao": "Utilizando português",
         "atributo": "Exemplo de como utilizar em atributos"
-    }
+    },
+    "Esqueci-Senha": "Esqueceu a senha?",
+
+    "Valor-1": "Valor 1",
+    "Valor-2": "Valor 2",
+    "Mensagem": "Mensagem",
+    "Editar-acontecimentos": "Editar acontecimentos",
+    "Adicionar-acontecimento": "Adicionar acontecimento",
+    "Penalti": "Pênalti",
+    "Cartao-vermelho": "Cartão Vermelho",
+    "Cartao-amarelo": "Cartão Amarelo",
+    "Modalidade": "Modalide: ",
+    "Local": "Local: ",
+    "Acao": "Ação",
+    "Substituicao": "Substituição",
+    "Insira-Acao": "Insira ação",
+    "Ja-tem-Login": "Já tem login?",
+    "Nome-Org": "Nome Organização",
+    "Email-Existe": "E-mail já cadastrado",
+    "Inserir-Local": "Inserir local"
 }

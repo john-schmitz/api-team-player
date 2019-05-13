@@ -1,0 +1,60 @@
+@import url(./general.css);
+
+body {
+    background-color: #1f1f1f;
+    padding-top: 20px;
+}
+
+.matches {
+    max-width: 500px;
+}
+
+.matches-date{
+    color: white;
+}
+
+.match {
+    border-left: 10px solid #4b9af6;
+    cursor: pointer;
+}
+
+.match--card {
+    border-radius: 0.35rem;
+    background-color: white;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.match-hour {
+    padding: 0 10px;
+    text-align: center;
+}
+
+.match-hour--text {
+    display: flex; 
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.match-team {
+    font-weight: 600;
+}
+
+.match-maininfo {
+    font-size: 17px;
+}
+
+.match-subinfo {
+    font-size: 14.5px;
+    color: #675d5d;
+}
+
+.follow-btn {
+    border-top: 1px solid #cacaca;
+    padding-top: 10px;
+    margin-top: 10px;
+}

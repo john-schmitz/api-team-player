@@ -8,27 +8,6 @@ class FeedRoutes {
     this.defineRoutes();
   }
 
-  private defineRoutes(): void {
-    this.Router.get(
-      '/feed',
-      (req, res): void => {
-        res.status(200);
-        res.send(feedController.getFeed());
-      },
-    );
-
-    this.Router.post(
-      '/feed',
-      (req, res): void => {
-        if (feedController.addEvent(req.body)) {
-          res.status(200);
-          res.send({ message: 'ok' });
-        } else {
-          res.status(500);
-          res.send({ message: 'Deu pau aqui.' });
-        }
-      },
-    );
-  }
+  private defineRoutes(): void {}
 }
 export default new FeedRoutes().Router;

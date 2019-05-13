@@ -1,6 +1,7 @@
 export interface User {
+  matchesId: number[];
   id: number;
-  nome: string;
+  name: string;
   email: string;
-  nomeOrganizacao: string;
+  nameOrganization: string;
 }

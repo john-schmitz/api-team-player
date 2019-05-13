@@ -6,10 +6,16 @@ export class Match extends BaseEntity {
   public id: number;
 
   @Column()
-  public team1: string;
+  public namePrincipal: string;
 
   @Column()
-  public team2: string;
+  public nameVisitor: string;
+
+  @Column()
+  public modality: string;
+
+  @Column()
+  public place: string;
 
   @Column()
   public date: Date;
