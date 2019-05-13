@@ -61,9 +61,10 @@ class UserController {
     const feed: any[] | PromiseLike<any[]> = [];
     const user = await this.findUserById(id);
     const matchArray = await Match.findByIds(user.matchesId);
-    for (let index = 0; index < matchArray.length; index++) {
-      feed.push(...(await Update.find({ where: { match: matchArray[index] } })));
-    }
+    if(matchArray.length)
+      for (let index = 0; index < matchArray.length; index++) {
+        feed.push(...(await Update.find({ where: { match: matchArray[index] } })));
+      }
     return feed;
   }
 }
