@@ -49,7 +49,7 @@ export default [
           place: req.body.place,
           namePrincipal: req.body.namePrincipal,
           nameVisitor: req.body.nameVisitor,
-          date: new Date(),
+          date: new Date(req.body.date),
         };
         await matchController.add(match);
         return res.status(200).send({ message: 'ok' });
