@@ -26,5 +26,8 @@
         "src/**/*",
         "config",
         "src/swagger.ts"
+    ],
+    "exclude": [
+        "src/**/*.test.ts"
     ]
 }

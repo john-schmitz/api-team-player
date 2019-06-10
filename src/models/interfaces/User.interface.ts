@@ -1,6 +1,6 @@
 export interface User {
   matchesId: number[];
-  id: number;
+  id: string;
   name: string;
   email: string;
   nameOrganization: string;

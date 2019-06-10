@@ -1,10 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  ManyToOne,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typeorm';
 import { Match } from './Match';
 
 @Entity()
 export class Update extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  public id: number;
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
 
   @Column()
   public date: Date;
@@ -18,6 +27,12 @@ export class Update extends BaseEntity {
   @Column('simple-json')
   public action: { text: string; type: string };
 
-  @ManyToOne((): any => Match)
+  @ManyToOne(() => Match)
   public match: Match;
+
+  @CreateDateColumn()
+  public created_at: Date;
+
+  @UpdateDateColumn()
+  public updated_at: Date;
 }
