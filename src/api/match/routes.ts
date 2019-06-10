@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import matchController from './matchController';
-
+import { check, validationResult, body } from 'express-validator/check';
 export default [
   {
     method: 'get',
@@ -29,10 +29,21 @@ export default [
     },
   },
   {
+    validation: [
+      check('modality').exists(),
+      check('place').exists(),
+      check('namePrincipal').exists(),
+      check('nameVisitor').exists(),
+      check('date').exists()
+    ],
     method: 'post',
     path: '/match/new',
-    handler: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    handler: async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
       try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() });
+        }
         const match = {
           modality: req.body.modality,
           place: req.body.place,
@@ -41,8 +52,7 @@ export default [
           date: new Date(),
         };
         await matchController.add(match);
-        res.status(200);
-        res.send({ message: 'ok' });
+        return res.status(200).send({ message: 'ok' });
       } catch (error) {
         next(error);
       }
