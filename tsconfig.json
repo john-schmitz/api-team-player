@@ -1,33 +1,18 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "lib": [
-            "es5",
-            "es6",
-            "dom"
-        ],
-        "target": "es5",
-        "noImplicitAny": true,
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "outDir": "dist",
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "node_modules/*"
-            ]
-        },
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
-    },
-    "include": [
-        "src/**/*",
-        "config",
-        "src/swagger.ts"
-    ],
-    "exclude": [
-        "src/**/*.test.ts"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

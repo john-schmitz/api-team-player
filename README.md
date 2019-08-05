@@ -1,20 +1,39 @@
-# bom dia
-Para instalar o projeto rode: 
+## Installation
 
-`npm install`
-
-Para rodar o projeto: 
-
-`npm run start`
-
-
-Exemplo de .env: 
+```bash
+$ npm install
 ```
-DATABASE_TYPE=mysql
-DATABASE_HOST=localhost
-DATABASE_PORT=3306
-DATABASE_USER=root
-DATABASE_PASSWORD=zapzap
-DATABASE_NAME=team_player
-JWT_SECRET=Y2F3IGNhdyBtb3RoZXJmdWNrZXJz
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## .env Example:
+```.env
+CORS=true
+PORT=5500
+DATABASE_URL=mysql://user:password@localhost:3306/database_name
+DATABASE_SYNCHRONIZE=true
 ```

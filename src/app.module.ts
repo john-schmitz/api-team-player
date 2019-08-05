@@ -1,0 +1,33 @@
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { OrganizationsModule } from './organizations/organizations.module';
+import { EventsModule } from './events/events.module';
+import { CompetitionsModule } from './competitions/competitions.module';
+import { MatchesModule } from './matches/matches.module';
+import { UpdatesModule } from './updates/updates.module';
+import { ConfigModule } from './config/config.module';
+import { ConfigService } from './config/config.service';
+import { AuthModule } from './auth/auth.module';
+
+@Module({
+  imports: [
+    UsersModule,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useExisting: ConfigService,
+    }),
+    OrganizationsModule,
+    EventsModule,
+    CompetitionsModule,
+    MatchesModule,
+    UpdatesModule,
+    ConfigModule,
+    AuthModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
