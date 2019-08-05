@@ -25,7 +25,7 @@ export class ConfigService implements TypeOrmOptionsFactory, JwtOptionsFactory {
       PORT: Joi.number().default(process.env.PORT),
       DATABASE_URL: Joi.string().default(process.env.DATABASE_URL),
       CORS: Joi.boolean().required(),
-      DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
+      DATABASE_SYNCHRONIZE: Joi.boolean().default(process.env.DATABASE_SYNCHRONIZE),
       JWT_SECRET: Joi.string().default(process.env.JWT_SECRET),
     });
 
