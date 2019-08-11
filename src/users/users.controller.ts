@@ -9,19 +9,23 @@ import {
   Get,
   Delete,
   Param,
+  Put,
 } from '@nestjs/common';
 import {
   ApiUseTags,
   ApiBearerAuth,
   ApiUnauthorizedResponse,
   ApiOkResponse,
+  ApiOperation,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateOrganizationDTO } from './createOrganizationDTO';
 import { FollowMatchDTO } from './followMatchDTO';
 import { FollowEventDTO } from './followEventDTO';
 import { FollowCompetitionDTO } from './followCompetitionDTO';
+import { EditUserDTO } from './editUserDTO';
 import { AuthGuard } from '@nestjs/passport';
+import { ProfileWithOrganization } from '../auth/responses/profileWithTokenAndOrganization.response';
 
 @ApiUseTags('Users')
 @ApiBearerAuth()
@@ -31,22 +35,18 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @ApiUnauthorizedResponse({})
-  @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
-  @Post('organization')
-  addOrganiaztion(
-    @Body() createOrganizationDTO: CreateOrganizationDTO,
-    @Request() req,
-  ) {
-    return this.usersService.createOrganization(
-      req.user.id,
-      createOrganizationDTO.name,
-    );
+  @ApiOkResponse({ description: 'Ok', type: ProfileWithOrganization })
+  @ApiOperation({ title: 'User profile' })
+  @Get('profile')
+  getProfile(@Request() req) {
+    return { profile: req.user };
   }
 
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'User feed' })
   @Get('feed')
   feed(@Request() req) {
     return this.usersService.feed(req.user.id);
@@ -55,6 +55,24 @@ export class UsersController {
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Create organization' })
+  @Post('organization')
+  async addOrganiaztion(
+    @Body() createOrganizationDTO: CreateOrganizationDTO,
+    @Request() req,
+  ) {
+    return {
+      profile: await this.usersService.createOrganization(
+        req.user.id,
+        createOrganizationDTO.name,
+      ),
+    };
+  }
+
+  @ApiUnauthorizedResponse({})
+  @ApiOkResponse({})
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Follow match' })
   @Post('matches')
   followMatch(@Body() followMatchDTO: FollowMatchDTO, @Request() req) {
     return this.usersService.followMatch(req.user.id, followMatchDTO.matchId);
@@ -63,30 +81,40 @@ export class UsersController {
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
-  @Delete('matches/:matchId')
-  unfollowMatch( @Param('matchId') matchId, @Request() req) {
+  @ApiOperation({ title: 'Unfollow match' })
+  @Delete('matches/:match_id')
+  unfollowMatch(@Param('match_id') matchId, @Request() req) {
     return this.usersService.unfollowMatch(req.user.id, matchId);
   }
 
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Follow competition' })
   @Post('competitions')
-  followCompetition(@Body() followCompetitionDTO: FollowCompetitionDTO, @Request() req) {
-    return this.usersService.followCompetition(req.user.id, followCompetitionDTO.competitionId);
+  followCompetition(
+    @Body() followCompetitionDTO: FollowCompetitionDTO,
+    @Request() req,
+  ) {
+    return this.usersService.followCompetition(
+      req.user.id,
+      followCompetitionDTO.competitionId,
+    );
   }
 
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
-  @Delete('competitions/:competitionId')
-  unfollowCompetition( @Param('competitionId') ccompetitionId, @Request() req) {
+  @ApiOperation({ title: 'Unfollow competition' })
+  @Delete('competitions/:competition_id')
+  unfollowCompetition(@Param('competition_id') ccompetitionId, @Request() req) {
     return this.usersService.unfollowCompetition(req.user.id, ccompetitionId);
   }
 
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Follow event' })
   @Post('events')
   followEvent(@Body() followEventDTO: FollowEventDTO, @Request() req) {
     return this.usersService.followEvent(req.user.id, followEventDTO.eventId);
@@ -95,8 +123,18 @@ export class UsersController {
   @ApiUnauthorizedResponse({})
   @ApiOkResponse({})
   @UseGuards(AuthGuard('jwt'))
-  @Delete('events/:eventId')
-  unfollowEvent( @Param('eventId') eventId, @Request() req) {
+  @ApiOperation({ title: 'Unfollow event' })
+  @Delete('events/:event_id')
+  unfollowEvent(@Param('event_id') eventId, @Request() req) {
     return this.usersService.unfollowEvent(req.user.id, eventId);
+  }
+
+  @ApiUnauthorizedResponse({})
+  @ApiOkResponse({})
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Edit user' })
+  @Put('users')
+  edit(@Body() editUserDTO: EditUserDTO, @Request() req) {
+    return this.usersService.update(req.user.id, editUserDTO);
   }
 }

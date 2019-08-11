@@ -3,7 +3,6 @@ import {
   UseGuards,
   Post,
   Request,
-  Get,
   Body,
   UseInterceptors,
   ClassSerializerInterceptor,
@@ -16,10 +15,13 @@ import {
   ApiOkResponse,
   ApiBearerAuth,
   ApiUnauthorizedResponse,
+  ApiOperation,
+  ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { LoginDTO } from './LoginDTO';
 import { RegisterDTO } from './registerDTO';
 import { UsersService } from '../users/users.service';
+import { ProfileWithToken } from './responses/profileWithToken.response';
 
 @ApiUseTags('Auth')
 @ApiBearerAuth()
@@ -32,9 +34,10 @@ export class AuthController {
   ) {}
 
   @ApiImplicitBody({ name: 'Login', type: LoginDTO, required: true })
-  @ApiOkResponse({ description: 'Ok' })
+  @ApiOkResponse({ description: 'Ok', type: ProfileWithToken })
   @ApiUnauthorizedResponse({})
   @UseGuards(AuthGuard('local'))
+  @ApiOperation({ title: 'Login' })
   @Post('login')
   async login(@Request() req) {
     const { name, email } = req.user;
@@ -52,7 +55,8 @@ export class AuthController {
     };
   }
 
-  @ApiOkResponse({ description: 'Ok' })
+  @ApiCreatedResponse({ description: 'User created', type: ProfileWithToken })
+  @ApiOperation({ title: 'Register' })
   @Post('register')
   async register(@Body() registerDTO: RegisterDTO) {
     const { name, email, id } = await this.userService.add(registerDTO);
@@ -68,12 +72,5 @@ export class AuthController {
       access_token,
       profile,
     };
-  }
-
-  @ApiUnauthorizedResponse({})
-  @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  getProfile(@Request() req) {
-    return { profile: req.user };
   }
 }

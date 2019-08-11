@@ -1,11 +1,12 @@
 import { User } from './user.entity';
-import { Repository } from 'typeorm';
+import { Repository, DeepPartial, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterDTO } from '../auth/registerDTO';
 import { Organization } from '../organizations/organization.entity';
 import { MatchesService } from '../matches/matches.service';
 import { EventsService } from '../events/events.service';
 import { CompetitionsService } from '../competitions/competitions.service';
+import { EditUserDTO } from './editUserDTO';
 import * as bcrypt from 'bcrypt';
 import {
   Injectable,
@@ -14,6 +15,7 @@ import {
   BadRequestException,
   NotImplementedException,
 } from '@nestjs/common';
+import { Match } from 'src/matches/match.entity';
 
 @Injectable()
 export class UsersService {
@@ -56,7 +58,7 @@ export class UsersService {
       throw new ConflictException('Name already in use.');
     }
 
-    if (user) {
+    if (!user) {
       throw new NotFoundException('User not found.');
     }
 
@@ -225,5 +227,26 @@ export class UsersService {
 
   public feed(id: string) {
     throw new NotImplementedException('Method not implemented.');
+  }
+
+  async update(
+    id: string,
+    editUserDTO: DeepPartial<User>,
+  ): Promise<UpdateResult> {
+    return await this.userRepository.update({ id }, editUserDTO);
+  }
+
+  async allWithFollows(userId: string): Promise<Match[]> {
+    const [user, matches] = await Promise.all([
+      this.findUserAndMatchesById(userId),
+      this.matchesService.findAll(),
+    ]);
+
+    if (user.matches.length > 0)
+      return matches.map(match => ({
+        ...match,
+        following: user.matches.indexOf(match) > -1,
+      }));
+    else return matches.map(match => ({ ...match, following: false }));
   }
 }

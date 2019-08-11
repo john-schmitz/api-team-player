@@ -10,6 +10,10 @@ export class MatchesService {
     private readonly matchesRepository: Repository<Match>,
   ) {}
 
+  async findAll(): Promise<Match[]> {
+    return this.matchesRepository.find();
+  }
+
   async findOneById(matchId: string): Promise<Match | undefined> {
     return this.matchesRepository.findOne({ where: { id: matchId } });
   }

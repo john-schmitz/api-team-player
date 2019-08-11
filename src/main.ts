@@ -16,7 +16,6 @@ async function bootstrap() {
   }
 
   const options = new DocumentBuilder()
-    .setHost('team-player-ifsp.herokuapp.com')
     .setBasePath('api')
     .setTitle('Team Player')
     .setDescription('')

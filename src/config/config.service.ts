@@ -24,8 +24,10 @@ export class ConfigService implements TypeOrmOptionsFactory, JwtOptionsFactory {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       PORT: Joi.number().default(process.env.PORT),
       DATABASE_URL: Joi.string().default(process.env.DATABASE_URL),
-      CORS: Joi.boolean().default(process.env.CORS),
-      DATABASE_SYNCHRONIZE: Joi.boolean().default(process.env.DATABASE_SYNCHRONIZE),
+      CORS: Joi.boolean().required(),
+      DATABASE_SYNCHRONIZE: Joi.boolean().default(
+        process.env.DATABASE_SYNCHRONIZE,
+      ),
       JWT_SECRET: Joi.string().default(process.env.JWT_SECRET),
     });
 
@@ -62,8 +64,8 @@ export class ConfigService implements TypeOrmOptionsFactory, JwtOptionsFactory {
   public createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
       type: 'mysql',
+      database: 'Ifxy4XDwLK',
       url: this.DATABASE_URL,
-      database: 'team_player',
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: this.DATABASE_SYNCHRONIZE,
     };

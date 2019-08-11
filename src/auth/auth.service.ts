@@ -22,7 +22,14 @@ export class AuthService {
       name: user.name,
       email: user.email,
       sub: user.id,
+      organization: undefined,
     };
+    if (user.organization) {
+      payload.organization = {
+        id: user.organization.id,
+        name: user.organization.name,
+      };
+    }
     return this.jwtService.sign(payload);
   }
 }

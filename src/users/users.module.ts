@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,7 +8,12 @@ import { EventsModule } from '../events/events.module';
 import { CompetitionsModule } from '../competitions/competitions.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), MatchesModule, EventsModule, CompetitionsModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    forwardRef(() => MatchesModule),
+    EventsModule,
+    CompetitionsModule,
+  ],
   providers: [UsersService],
   exports: [UsersService],
   controllers: [UsersController],

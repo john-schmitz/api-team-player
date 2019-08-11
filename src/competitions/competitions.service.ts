@@ -11,6 +11,8 @@ export class CompetitionsService {
   ) {}
 
   async findOneById(competitionId: string): Promise<Competition | undefined> {
-    return this.competitionsRepository.findOne({ where: { id: competitionId } });
+    return this.competitionsRepository.findOne({
+      where: { id: competitionId },
+    });
   }
 }
