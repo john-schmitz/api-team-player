@@ -6,8 +6,8 @@ import { Organization } from '../organizations/organization.entity';
 import { MatchesService } from '../matches/matches.service';
 import { EventsService } from '../events/events.service';
 import { CompetitionsService } from '../competitions/competitions.service';
-import { EditUserDTO } from './editUserDTO';
 import * as bcrypt from 'bcrypt';
+
 import {
   Injectable,
   ConflictException,
@@ -242,11 +242,13 @@ export class UsersService {
       this.matchesService.findAll(),
     ]);
 
-    if (user.matches.length > 0)
+    if (user.matches.length > 0) {
       return matches.map(match => ({
         ...match,
         following: user.matches.indexOf(match) > -1,
       }));
-    else return matches.map(match => ({ ...match, following: false }));
+    } else {
+      return matches.map(match => ({ ...match, following: false }));
+    }
   }
 }
