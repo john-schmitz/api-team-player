@@ -15,7 +15,7 @@ import {
   BadRequestException,
   NotImplementedException,
 } from '@nestjs/common';
-import { Match } from 'src/matches/match.entity';
+import { Match } from '../matches/match.entity';
 
 @Injectable()
 export class UsersService {

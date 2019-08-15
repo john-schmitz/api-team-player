@@ -22,7 +22,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../users/users.service';
 import { MatchList } from './responses/matchList.response';
 import { UpdatesService } from '../updates/updates.service';
-import { UpdateMatchDTO } from 'src/updates/updateMatchDTO';
+import { UpdateMatchDTO } from '../updates/updateMatchDTO';
 
 @ApiUseTags('Matches')
 @ApiBearerAuth()
