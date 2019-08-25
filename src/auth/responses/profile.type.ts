@@ -7,4 +7,6 @@ export class Profile {
   readonly name: string;
   @ApiModelProperty({ example: '1' })
   readonly id: string;
+  @ApiModelProperty({ example: 'https://i.imgur.com/Ss0fZAy.png' })
+  readonly image_url: string;
 }

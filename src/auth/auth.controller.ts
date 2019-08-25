@@ -50,6 +50,7 @@ export class AuthController {
       name: user.name,
       email: user.email,
       id: user.id,
+      image_url: user.image_url,
       organization: undefined,
     };
     if (user.organization) {

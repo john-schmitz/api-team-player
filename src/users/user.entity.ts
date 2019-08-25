@@ -30,6 +30,9 @@ export class User extends BaseEntity {
   @Column()
   public email: string;
 
+  @Column({ nullable: true })
+  public image_url: string;
+
   @Exclude()
   @Column()
   public password: string;

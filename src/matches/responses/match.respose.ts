@@ -22,7 +22,7 @@ export class Match {
   })
   readonly place: string;
   @ApiModelProperty({
-    example: 'Tech and boys',
+    example: '2019-08-25T17:01:12.937Z',
   })
   readonly date: Date;
   @ApiModelProperty({

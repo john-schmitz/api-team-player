@@ -8,13 +8,15 @@ import { CompetitionsModule } from '../competitions/competitions.module';
 import { Update } from '../updates/update.entity';
 import { FollowService } from './follow/follow.service';
 import { UsersRepository } from './users.repository';
+import { ImageUploadModule } from '../image-upload/image-upload.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UsersRepository, Update]),
     forwardRef(() => MatchesModule),
     forwardRef(() => EventsModule),
-    CompetitionsModule,
+    forwardRef(() => CompetitionsModule),
+    ImageUploadModule,
   ],
   providers: [UsersService, FollowService],
   exports: [UsersService],

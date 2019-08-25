@@ -25,7 +25,9 @@ export class Competition {
   @ManyToOne(type => Event, event => event.competitions)
   public event: Event;
 
-  @ManyToOne(type => Organization, organization => organization.competitions)
+  @ManyToOne(type => Organization, organization => organization.competitions, {
+    eager: true,
+  })
   public organization: Organization;
 
   @OneToMany(type => Match, match => match.competition)

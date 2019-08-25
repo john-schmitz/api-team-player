@@ -148,6 +148,7 @@ export class OrganizationsController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ title: 'Create match' })
   @ApiImplicitParam({ name: 'organization_id', type: String })
+  @ApiImplicitParam({ name: 'competition_id', type: String })
   @Post(':organization_id/competitions/:competition_id/matches')
   createMatch(
     @Param('organization_id') organizationId,
@@ -156,7 +157,7 @@ export class OrganizationsController {
     @Request() req,
   ) {
     if (req.user.organization && req.user.organization.id === organizationId) {
-      return this.organizationsService.addMatch(createMatchDTO, organizationId);
+      return this.organizationsService.addMatch(createMatchDTO, competitionId);
     }
     throw new BadRequestException('You don\'t bellong to this organization =(');
   }
@@ -183,6 +184,7 @@ export class OrganizationsController {
       page,
       limit,
     );
+
     return {
       data,
       count,

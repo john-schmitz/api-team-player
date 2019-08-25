@@ -26,6 +26,7 @@ export class OrganizationsService {
     const skip = (page - 1) * take;
     return this.eventsRepository.findAndCount({
       where: { organization: { id: organizationId } },
+      relations: ['organization'],
       take,
       skip,
       order: {
@@ -36,10 +37,13 @@ export class OrganizationsService {
 
   async findAllMatches(organizationId: any, page: number, take: number) {
     const skip = (page - 1) * take;
+
     return this.matchesRepository.findAndCount({
-      where: [
-        { competition: { organization: { id: organizationId } } },
-        { competition: { event: { organization: { id: organizationId } } } },
+      where: { competition: { organization: { id: organizationId } } },
+      relations: [
+        'competition',
+        'competition.event',
+        'competition.organization',
       ],
       take,
       skip,
@@ -68,10 +72,10 @@ export class OrganizationsService {
   ) {
     const competition = this.competitionRepository.create(createCompetitionDTO);
 
-    if (createCompetitionDTO.event_id) {
+    if (createCompetitionDTO.eventId) {
       const res = await this.eventsRepository.findOne({
         where: {
-          id: createCompetitionDTO.event_id,
+          id: createCompetitionDTO.eventId,
           organization: { id: organizationId },
         },
       });
@@ -79,7 +83,7 @@ export class OrganizationsService {
         throw new NotFoundException('Event not found');
       }
       const event = this.eventsRepository.create({
-        id: createCompetitionDTO.event_id,
+        id: createCompetitionDTO.eventId,
       });
       competition.event = event;
     }

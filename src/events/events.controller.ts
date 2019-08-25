@@ -39,8 +39,8 @@ export class EventsController {
   })
   @ApiOkResponse({ description: 'Ok', type: EventList })
   @Get()
-  all() {
-    this.eventService.findAll();
+  all(@Request() req) {
+    return this.usersService.allEventsWithFollows(req.user.id);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -52,7 +52,7 @@ export class EventsController {
   @ApiOkResponse({ description: 'Ok', type: EventList })
   @Get('following')
   allFollowing(@Request() req) {
-    return this.usersService.allEventsWithFollows(req.user.id);
+    return this.usersService.findUserAndEventsById(req.user.id);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -61,7 +61,7 @@ export class EventsController {
     description: 'Unauthorized',
     type: UnauthorizedResponse,
   })
-  @ApiOkResponse({ description: 'Ok'})
+  @ApiOkResponse({ description: 'Ok' })
   @Get(':event_id/competitions')
   allCompetitions(@Param('event_id') eventId: string) {
     return this.competitionsService.findByEnventId(eventId);

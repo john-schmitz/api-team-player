@@ -5,6 +5,7 @@ import { Competition } from './competition.entity';
 
 @Injectable()
 export class CompetitionsService {
+
   constructor(
     @InjectRepository(Competition)
     private readonly competitionsRepository: Repository<Competition>,
@@ -18,7 +19,17 @@ export class CompetitionsService {
 
   async findByEnventId(eventId: string) {
     return this.competitionsRepository.find({
-      event: { id: eventId },
+      relations: ['organization'],
+      where: { event: { id: eventId } },
+    });
+  }
+
+  async findAll(): Promise<Competition[]> {
+    return this.competitionsRepository.find({
+      relations: ['organization'],
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 }

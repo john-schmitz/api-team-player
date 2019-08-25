@@ -29,6 +29,8 @@ export class ConfigService implements TypeOrmOptionsFactory, JwtOptionsFactory {
         process.env.DATABASE_SYNCHRONIZE,
       ),
       JWT_SECRET: Joi.string().default(process.env.JWT_SECRET),
+      IMGUR_CLIENT_ID: Joi.string().default(process.env.IMGUR_CLIENT_ID),
+      IMGUR_URL: Joi.string().default(process.env.IMGUR_URL),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -59,6 +61,14 @@ export class ConfigService implements TypeOrmOptionsFactory, JwtOptionsFactory {
 
   get JWT_SECRET(): string {
     return String(this.envConfig.JWT_SECRET);
+  }
+
+  get IMGUR_CLIENT_ID(): string {
+    return String(this.envConfig.IMGUR_CLIENT_ID);
+  }
+
+  get IMGUR_URL(): string {
+    return String(this.envConfig.IMGUR_URL);
   }
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {

@@ -44,8 +44,8 @@ export class MatchesController {
   })
   @ApiOkResponse({ description: 'Ok', type: MatchList })
   @Get('following')
-  allFollowing(@Request() req): Promise<Match[]> {
-    return this.usersService.allMatchesWithFollows(req.user.id);
+  allFollowing(@Request() req) {
+    return this.usersService.findUserAndMatchesById(req.user.id);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -56,8 +56,10 @@ export class MatchesController {
   })
   @ApiOkResponse({ description: 'Ok', type: MatchList })
   @Get('')
-  all(@Request() req): Promise<Match[]> {
-    return this.matchesService.findAll();
+  async all(@Request() req) {
+    return {
+      matches: await this.usersService.allMatchesWithFollows(req.user.id),
+    };
   }
 
   @UseGuards(AuthGuard('jwt'))

@@ -5,7 +5,7 @@ export class CreateCompetitionDTO {
     example: '1f54194e-8456-4b71-9e55-604e531b8983',
     nullable: true,
   })
-  readonly event_id?: string;
+  readonly eventId?: string;
 
   @ApiModelProperty({ type: String, example: 'Quimada Libre' })
   readonly name: string;

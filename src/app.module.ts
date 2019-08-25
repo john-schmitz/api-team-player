@@ -11,6 +11,7 @@ import { UpdatesModule } from './updates/updates.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { AuthModule } from './auth/auth.module';
+import { ImageUploadModule } from './image-upload/image-upload.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
     UpdatesModule,
     ConfigModule,
     AuthModule,
+    ImageUploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
