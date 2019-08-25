@@ -20,6 +20,7 @@ import { Update } from '../updates/update.entity';
 import { UsersRepository } from './users.repository';
 import { ImageUploadService } from '../image-upload/image-upload.service';
 import { EditUserDTO } from './editUserDTO';
+import { CreateOrganizationDTO } from './createOrganizationDTO';
 
 @Injectable()
 export class UsersService {
@@ -47,10 +48,10 @@ export class UsersService {
     return user.save();
   }
 
-  async createOrganization(userId: string, organizationName: string) {
+  async createOrganization(userId: string, createOrganizationDTO: CreateOrganizationDTO) {
     const [match, user] = await Promise.all([
       this.userRepository.findOne({
-        where: { organization: { name: organizationName } },
+        where: { organization: { name: createOrganizationDTO.name } },
         relations: ['organization'],
       }),
       this.userRepository.findOneById(userId),
@@ -68,8 +69,21 @@ export class UsersService {
       throw new ConflictException('User already has a organization.');
     }
 
+    if (createOrganizationDTO.image) {
+      const res = await this.imageUploadService.uploadFunction(
+        createOrganizationDTO.image,
+      );
+      const resjson = await res.json();
+      if (resjson.data && resjson.success && resjson.status === 200) {
+        createOrganizationDTO.image = resjson.data.link;
+      } else {
+        delete  createOrganizationDTO.image;
+      }
+    }
+
     const organization = new Organization();
-    organization.name = organizationName;
+    organization.name = createOrganizationDTO.name;
+    organization.image = createOrganizationDTO.image;
     user.organization = organization;
     return this.userRepository.save(user);
   }

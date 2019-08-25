@@ -7,6 +7,9 @@ export class Organization {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
+  @Column({ nullable: true })
+  public image: string;
+
   @OneToMany(type => Competition, competition => competition.organization, {
     cascade: true,
   })

@@ -106,7 +106,7 @@ export class OrganizationsService {
     await this.eventsRepository.save(event);
     return this.organizationRepository.findOne({
       where: { id: organizationId },
-      relations: ['events'],
+      relations: ['events', 'events.organization'],
     });
   }
 

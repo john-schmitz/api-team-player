@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       name: user.name,
       email: user.email,
       organization: undefined,
-      image_url: user.image_url,
+      image_url: user.image,
     };
 
     if (user.organization) {

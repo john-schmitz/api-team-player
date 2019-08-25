@@ -95,7 +95,7 @@ export class UsersController {
     return {
       profile: await this.usersService.createOrganization(
         req.user.id,
-        createOrganizationDTO.name,
+        createOrganizationDTO,
       ),
     };
   }
