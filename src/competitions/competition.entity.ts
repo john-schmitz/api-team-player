@@ -22,6 +22,9 @@ export class Competition {
   @Column()
   public modality: string;
 
+  @Column({ nullable: true })
+  public image: string;
+
   @ManyToOne(type => Event, event => event.competitions)
   public event: Event;
 

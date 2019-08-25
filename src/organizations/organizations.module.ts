@@ -7,6 +7,7 @@ import { MatchesModule } from '../matches/matches.module';
 import { Event } from '../events/event.entity';
 import { Match } from '../matches/match.entity';
 import { Competition } from '../competitions/competition.entity';
+import { ImageUploadModule } from '../image-upload/image-upload.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { Competition } from '../competitions/competition.entity';
     TypeOrmModule.forFeature([Match]),
     TypeOrmModule.forFeature([Competition]),
     MatchesModule,
+    ImageUploadModule
   ],
   providers: [OrganizationsService],
   controllers: [OrganizationsController],

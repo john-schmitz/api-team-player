@@ -8,6 +8,7 @@ import { Match } from '../matches/match.entity';
 import { Competition } from '../competitions/competition.entity';
 import { CreateCompetitionDTO } from './createCompetitionDTO';
 import { CreateMatchDTO } from './createMatchDTO';
+import { ImageUploadService } from '../image-upload/image-upload.service';
 
 @Injectable()
 export class OrganizationsService {
@@ -20,6 +21,7 @@ export class OrganizationsService {
     private readonly matchesRepository: Repository<Match>,
     @InjectRepository(Competition)
     private readonly competitionRepository: Repository<Competition>,
+    private readonly imageUploadService: ImageUploadService,
   ) {}
 
   async findAllEvents(organizationId: any, page: number, take: number) {
@@ -86,6 +88,16 @@ export class OrganizationsService {
         id: createCompetitionDTO.eventId,
       });
       competition.event = event;
+    }
+
+    if (createCompetitionDTO.image) {
+      const res = await this.imageUploadService.uploadFunction(
+        createCompetitionDTO.image,
+      );
+      const resjson = await res.json();
+      if (resjson.data && resjson.success && resjson.status === 200) {
+        competition.image = resjson.data.link;
+      } 
     }
 
     const organization = this.organizationRepository.create({
