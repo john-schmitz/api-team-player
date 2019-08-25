@@ -157,10 +157,13 @@ export class UsersService {
       this.matchesService.findAllWithCompetition(),
     ]);
 
+    console.log(user.matches);
+    console.log(matches);
+    console.log(user.matches.indexOf(matches[0]));
     if (user.matches.length > 0) {
       return matches.map(match => ({
         ...match,
-        following: user.matches.indexOf(match) > -1,
+        following: user.matches.some(match_ => match_.id == match.id),
       }));
     } else {
       return matches.map(match => ({ ...match, following: false }));
@@ -175,7 +178,7 @@ export class UsersService {
     if (user.competitions.length > 0) {
       return competitions.map(competition => ({
         ...competition,
-        following: user.competitions.indexOf(competition) > -1,
+        following: user.competitions.some(competition_ => competition_.id == competition.id),
       }));
     } else {
       return competitions.map(competition => ({
@@ -193,7 +196,7 @@ export class UsersService {
     if (user.events.length > 0) {
       return events.map(event => ({
         ...event,
-        following: user.events.indexOf(event) > -1,
+        following: user.events.some(event_ => event_.id == event.id),
       }));
     } else {
       return events.map(event => ({ ...event, following: false }));

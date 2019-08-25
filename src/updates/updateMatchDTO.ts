@@ -3,10 +3,7 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 import { Action } from './action.type';
 
 export class UpdateMatchDTO {
-  @ApiModelProperty({ example: 'eccc73f9-5d5c-4d5f-bc91-36dswag38f44' })
-  @IsNotEmpty()
-  readonly match_id: string;
-  @ApiModelProperty({ example: '1565823625' })
+  @ApiModelProperty({ example: '2019-08-25T17:01:12.937Z' })
   @IsNotEmpty()
   readonly date: Date;
   @ApiModelProperty({ example: 1 })

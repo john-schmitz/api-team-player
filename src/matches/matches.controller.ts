@@ -17,6 +17,7 @@ import {
   ApiUnauthorizedResponse,
   ApiOperation,
   ApiOkResponse,
+  ApiImplicitParam,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../users/users.service';
@@ -69,6 +70,7 @@ export class MatchesController {
   })
   @ApiOperation({ title: 'Send match update' })
   @ApiOkResponse({ description: 'Ok' })
+  @ApiImplicitParam({name: 'match_id'})
   @Post(':match_id/update')
   update(
     @Request() req,
