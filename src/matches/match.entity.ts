@@ -16,8 +16,14 @@ export class Match {
   @Column()
   public namePrincipal: string;
 
+  @Column({ nullable: true })
+  public imagePrincipal: string;
+
   @Column()
   public nameVisitor: string;
+
+  @Column({ nullable: true })
+  public imageVisitor: string;
 
   @Column()
   public place: string;

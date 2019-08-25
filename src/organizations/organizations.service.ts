@@ -130,6 +130,24 @@ export class OrganizationsService {
     if (!competition) {
       throw new NotFoundException('Competition not found');
     }
+    const [resImagePrincipal, resImageVisitor] = await Promise.all([
+      this.imageUploadService.uploadFunction(createMatchDTO.imagePrincipal),
+      this.imageUploadService.uploadFunction(createMatchDTO.imageVisitor),
+    ]);
+
+    const [jsonPrincipal, jsonVisitor] = await Promise.all([
+      resImagePrincipal.json(),
+      resImageVisitor.json()
+    ]);
+
+    if (jsonPrincipal.data && jsonPrincipal.success && jsonPrincipal.status === 200) {
+      match.imagePrincipal = jsonPrincipal.data.link;
+    }
+  
+    if (jsonVisitor.data && jsonVisitor.success && jsonVisitor.status === 200) {
+      match.imageVisitor = jsonVisitor.data.link;
+    }
+
     match.competition = competition;
     return this.matchesRepository.save(match);
   }
