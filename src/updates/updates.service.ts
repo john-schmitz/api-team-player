@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Update } from './update.entity';
-import { Repository } from 'typeorm';
 import { MatchesService } from '../matches/matches.service';
 import { UpdateMatchDTO } from './updateMatchDTO';
 

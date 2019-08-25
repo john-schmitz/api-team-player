@@ -22,6 +22,7 @@ import { LoginDTO } from './LoginDTO';
 import { RegisterDTO } from './registerDTO';
 import { UsersService } from '../users/users.service';
 import { ProfileWithToken } from './responses/profileWithToken.response';
+import { UnauthorizedResponse } from '../util/unauthorized.response';
 
 @ApiUseTags('Auth')
 @ApiBearerAuth()
@@ -35,20 +36,28 @@ export class AuthController {
 
   @ApiImplicitBody({ name: 'Login', type: LoginDTO, required: true })
   @ApiOkResponse({ description: 'Ok', type: ProfileWithToken })
-  @ApiUnauthorizedResponse({})
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: UnauthorizedResponse,
+  })
   @UseGuards(AuthGuard('local'))
   @ApiOperation({ title: 'Login' })
   @Post('login')
   async login(@Request() req) {
-    const { name, email } = req.user;
-
-    const profile = {
-      name,
-      email,
-    };
-
     const access_token = await this.authService.login(req.user);
-
+    const user = req.user;
+    const profile = {
+      name: user.name,
+      email: user.email,
+      id: user.id,
+      organization: undefined,
+    };
+    if (user.organization) {
+      profile.organization = {
+        id: user.organization.id,
+        name: user.organization.name,
+      };
+    }
     return {
       access_token,
       profile,

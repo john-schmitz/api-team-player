@@ -1,8 +1,17 @@
-import { ApiModelProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { IsNotEmpty, IsDate } from 'class-validator';
 
 export class CreateMatchDTO {
-  @ApiModelProperty({ example: '1f54194e-8456-4b71-9e55-604e531b8983' })
+  @ApiModelProperty({ example: '1566680974' })
   @IsNotEmpty()
-  readonly competition_id: string;
+  @IsDate()
+  readonly date: Date;
+
+  @ApiModelProperty({ example: 'Coringão' })
+  @IsNotEmpty()
+  readonly namePrincipal: string;
+
+  @ApiModelProperty({ example: 'Gremio' })
+  @IsNotEmpty()
+  readonly nameVisitor: string;
 }

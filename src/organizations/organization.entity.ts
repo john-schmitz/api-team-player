@@ -7,7 +7,9 @@ export class Organization {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @OneToMany(type => Competition, competition => competition.organization)
+  @OneToMany(type => Competition, competition => competition.organization, {
+    cascade: true,
+  })
   public competitions: Competition[];
 
   @OneToMany(type => Event, event => event.organization)

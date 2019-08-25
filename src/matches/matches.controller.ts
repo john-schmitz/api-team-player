@@ -23,6 +23,7 @@ import { UsersService } from '../users/users.service';
 import { MatchList } from './responses/matchList.response';
 import { UpdatesService } from '../updates/updates.service';
 import { UpdateMatchDTO } from '../updates/updateMatchDTO';
+import { UnauthorizedResponse } from '../util/unauthorized.response';
 
 @ApiUseTags('Matches')
 @ApiBearerAuth()
@@ -36,20 +37,42 @@ export class MatchesController {
   ) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({ title: 'Get All matches' })
-  @ApiUnauthorizedResponse({})
+  @ApiOperation({ title: 'Get All matches that the current user follows' })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: UnauthorizedResponse,
+  })
   @ApiOkResponse({ description: 'Ok', type: MatchList })
-  @Get()
-  all(@Request() req): Promise<Match[]> {
-    return this.usersService.allWithFollows(req.user.id);
+  @Get('following')
+  allFollowing(@Request() req): Promise<Match[]> {
+    return this.usersService.allMatchesWithFollows(req.user.id);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @ApiUnauthorizedResponse({})
+  @ApiOperation({ title: 'Get All matches' })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: UnauthorizedResponse,
+  })
+  @ApiOkResponse({ description: 'Ok', type: MatchList })
+  @Get('')
+  all(@Request() req): Promise<Match[]> {
+    return this.matchesService.findAll();
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: UnauthorizedResponse,
+  })
   @ApiOperation({ title: 'Send match update' })
-  @ApiOkResponse({ description: 'Ok'})
+  @ApiOkResponse({ description: 'Ok' })
   @Post(':match_id/update')
-  update(@Request() req, @Body() updateMatchDTO: UpdateMatchDTO, @Param('match_id') matchId) {
+  update(
+    @Request() req,
+    @Body() updateMatchDTO: UpdateMatchDTO,
+    @Param('match_id') matchId,
+  ) {
     this.updatesService.add(updateMatchDTO, matchId, req.user.organization.id);
   }
 }

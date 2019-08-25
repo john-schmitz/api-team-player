@@ -13,10 +13,12 @@ class Organiaztion {
   readonly name: string;
 }
 
+// tslint:disable-next-line: max-classes-per-file
 class ProfileWithOrg extends Profile {
   @ApiModelProperty({ type: Organiaztion })
   readonly organization: Organiaztion;
 }
+// tslint:disable-next-line: max-classes-per-file
 export class ProfileWithOrganization {
   @ApiModelProperty({ type: ProfileWithOrg })
   readonly profile: ProfileWithOrg;

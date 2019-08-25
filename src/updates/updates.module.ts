@@ -5,7 +5,10 @@ import { UpdatesService } from './updates.service';
 import { MatchesModule } from '../matches/matches.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Update]), forwardRef(() => MatchesModule)],
+  imports: [
+    TypeOrmModule.forFeature([Update]),
+    forwardRef(() => MatchesModule),
+  ],
   providers: [UpdatesService],
   exports: [UpdatesService],
 })

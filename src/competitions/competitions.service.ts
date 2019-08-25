@@ -15,4 +15,10 @@ export class CompetitionsService {
       where: { id: competitionId },
     });
   }
+
+  async findByEnventId(eventId: string) {
+    return this.competitionsRepository.find({
+      event: { id: eventId },
+    });
+  }
 }

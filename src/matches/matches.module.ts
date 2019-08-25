@@ -8,7 +8,11 @@ import { UpdatesModule } from '../updates/updates.module';
 
 @Module({
   providers: [MatchesService],
-  imports: [TypeOrmModule.forFeature([Match]), forwardRef(() => UsersModule), forwardRef(() => UpdatesModule)],
+  imports: [
+    TypeOrmModule.forFeature([Match]),
+    forwardRef(() => UsersModule),
+    forwardRef(() => UpdatesModule),
+  ],
   exports: [MatchesService],
   controllers: [MatchesController],
 })

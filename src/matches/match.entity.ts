@@ -20,9 +20,6 @@ export class Match {
   public nameVisitor: string;
 
   @Column()
-  public modality: string;
-
-  @Column()
   public place: string;
 
   @Column()
