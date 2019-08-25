@@ -23,7 +23,6 @@ import { EditUserDTO } from './editUserDTO';
 
 @Injectable()
 export class UsersService {
-
   constructor(
     private readonly userRepository: UsersRepository,
     @InjectRepository(Update)
@@ -123,17 +122,18 @@ export class UsersService {
   }
 
   async update(id: string, editUserDTO: EditUserDTO) {
-    const user = { name: editUserDTO.name, image_url: undefined };
-    if (editUserDTO.image_base64) {
+    if (editUserDTO.image) {
       const res = await this.imageUploadService.uploadFunction(
-        editUserDTO.image_base64,
+        editUserDTO.image,
       );
       const resjson = await res.json();
       if (resjson.data && resjson.success && resjson.status === 200) {
-        user.image_url = resjson.data.link;
+        editUserDTO.image = resjson.data.link;
+      } else {
+        delete  editUserDTO.image;
       }
     }
-    await this.userRepository.update({ id }, user);
+    await this.userRepository.update({ id }, editUserDTO);
     return this.userRepository.findOne({ where: { id } });
   }
 
@@ -164,7 +164,10 @@ export class UsersService {
         following: user.competitions.indexOf(competition) > -1,
       }));
     } else {
-      return competitions.map(competition => ({ ...competition, following: false }));
+      return competitions.map(competition => ({
+        ...competition,
+        following: false,
+      }));
     }
   }
 

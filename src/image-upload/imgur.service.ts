@@ -5,10 +5,7 @@ import fetch = require('node-fetch');
 
 @Injectable()
 export class ImgurService {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly httpService: HttpService,
-  ) {}
+  constructor(private readonly configService: ConfigService) {}
 
   public async uploadImage(image: string, type: string) {
     const formData = new FormData();

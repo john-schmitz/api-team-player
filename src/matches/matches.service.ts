@@ -17,4 +17,8 @@ export class MatchesService {
   async findOneById(matchId: string): Promise<Match | undefined> {
     return this.matchesRepository.findOne({ where: { id: matchId } });
   }
+
+  findByCompetitionId(id: string) {
+    return this.matchesRepository.find({ where: { competition: { id } } });
+  }
 }

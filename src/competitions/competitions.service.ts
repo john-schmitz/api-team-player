@@ -5,7 +5,6 @@ import { Competition } from './competition.entity';
 
 @Injectable()
 export class CompetitionsService {
-
   constructor(
     @InjectRepository(Competition)
     private readonly competitionsRepository: Repository<Competition>,

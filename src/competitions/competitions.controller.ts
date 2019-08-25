@@ -1,16 +1,33 @@
-import { Controller, UseInterceptors, ClassSerializerInterceptor, Get, UseGuards, Request } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiOperation, ApiUnauthorizedResponse, ApiOkResponse } from '@nestjs/swagger';
+import {
+  Controller,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+  Get,
+  UseGuards,
+  Request,
+  Param,
+} from '@nestjs/common';
+import {
+  ApiUseTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UnauthorizedResponse } from '../util/unauthorized.response';
 import { UsersService } from '../users/users.service';
+import { MatchesService } from '../matches/matches.service';
 
 @ApiUseTags('Competitions')
 @ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('competitions')
 export class CompetitionsController {
-
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly matchesService: MatchesService,
+  ) {}
 
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ title: 'Get All Competitions that the curretn user follows' })
@@ -18,7 +35,7 @@ export class CompetitionsController {
     description: 'Unauthorized',
     type: UnauthorizedResponse,
   })
-  @ApiOkResponse({ description: 'Ok'})
+  @ApiOkResponse({ description: 'Ok' })
   @Get('following')
   async allFollowing(@Request() req) {
     return await this.usersService.findUserAndCompetitionsById(req.user.id);
@@ -30,7 +47,7 @@ export class CompetitionsController {
     description: 'Unauthorized',
     type: UnauthorizedResponse,
   })
-  @ApiOkResponse({ description: 'Ok'})
+  @ApiOkResponse({ description: 'Ok' })
   @Get()
   async all(@Request() req) {
     return await this.usersService.allCompetitionsWithFollows(req.user.id);
@@ -42,9 +59,9 @@ export class CompetitionsController {
     description: 'Unauthorized',
     type: UnauthorizedResponse,
   })
-  @ApiOkResponse({ description: 'Ok'})
+  @ApiOkResponse({ description: 'Ok' })
   @Get(':competition_id/matches')
-  async allMatches(@Request() req) {
-    return await this.usersService.allCompetitionsWithFollows(req.user.id);
+  async allMatches(@Request() req, @Param('competition_id') competitionId) {
+    return await this.matchesService.findByCompetitionId(req.user.id);
   }
 }
