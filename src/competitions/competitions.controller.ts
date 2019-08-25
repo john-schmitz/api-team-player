@@ -13,6 +13,8 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
   ApiOkResponse,
+  ApiImplicitQuery,
+  ApiImplicitParam,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UnauthorizedResponse } from '../util/unauthorized.response';
@@ -60,8 +62,11 @@ export class CompetitionsController {
     type: UnauthorizedResponse,
   })
   @ApiOkResponse({ description: 'Ok' })
+  @ApiImplicitQuery({ name: 'limit', type: String, required: false })
+  @ApiImplicitQuery({ name: 'page', type: String, required: false })
+  @ApiImplicitParam({ name: 'competition_id', type: String })
   @Get(':competition_id/matches')
   async allMatches(@Request() req, @Param('competition_id') competitionId) {
-    return await this.matchesService.findByCompetitionId(req.user.id);
+    return {matches: await this.matchesService.findByCompetitionId(competitionId)};
   }
 }

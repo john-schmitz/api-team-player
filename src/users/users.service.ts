@@ -154,7 +154,7 @@ export class UsersService {
   async allMatchesWithFollows(userId: string): Promise<Match[]> {
     const [user, matches] = await Promise.all([
       this.userRepository.findUserAndMatchesById(userId),
-      this.matchesService.findAll(),
+      this.matchesService.findAllWithCompetition(),
     ]);
 
     if (user.matches.length > 0) {
