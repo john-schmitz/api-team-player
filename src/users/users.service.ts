@@ -129,12 +129,13 @@ export class UsersService {
     }
 
     if (user.matches && user.matches.length > 0) {
-      for (const match of user.matches) {
+      for (const match_ of user.matches) {
+        const updates = await this.updatedsRepository.find({
+          where: { match: { id: match_.id } },
+          relations: ['match'],
+        });
         feed.push(
-          ...(await this.updatedsRepository.find({
-            where: { match: { id: match.id } },
-            relations: ['match'],
-          })),
+          ...(updates),
         );
       }
     }

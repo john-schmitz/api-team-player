@@ -91,7 +91,7 @@ export class FollowService {
     competitionId: string,
   ): Promise<User | undefined> {
     const [user, competition] = await Promise.all([
-      this.userRepository.findUserAndMatchesById(userId),
+      this.userRepository.findUserAndCompetitionsById(userId),
       this.competitionService.findOneById(competitionId),
     ]);
 
@@ -109,7 +109,7 @@ export class FollowService {
         'User does not follow the competition specified.',
       );
     }
-    user.matches.splice(index, 1);
+    user.competitions.splice(index, 1);
     return this.userRepository.save(user);
   }
 

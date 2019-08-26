@@ -36,7 +36,7 @@ export class UsersRepository extends Repository<User> {
 
   public async findUserAndAllFollows(id: string): Promise<User | undefined> {
     return await this.findOne({
-      relations: ['matches', 'events', 'competitions'],
+      relations: ['matches', 'events', 'events.competitions', 'events.competitions.matches', 'competitions', 'competitions.matches'],
       where: { id },
     });
   }

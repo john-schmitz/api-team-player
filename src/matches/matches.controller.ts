@@ -77,7 +77,7 @@ export class MatchesController {
     @Body() updateMatchDTO: UpdateMatchDTO,
     @Param('match_id') matchId,
   ) {
-    this.updatesService.add(updateMatchDTO, matchId, req.user.organization.id);
+    return this.updatesService.add(updateMatchDTO, matchId, req.user.organization.id);
   }
 
   @UseGuards(AuthGuard('jwt'))

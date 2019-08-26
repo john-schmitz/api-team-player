@@ -7,11 +7,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Update } from './update.entity';
 import { MatchesService } from '../matches/matches.service';
 import { UpdateMatchDTO } from './updateMatchDTO';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UpdatesService {
   constructor(
     @InjectRepository(Update)
+    private readonly updateRepository: Repository<Update>,
     private readonly matchesService: MatchesService,
   ) {}
 
@@ -20,19 +22,21 @@ export class UpdatesService {
     matchId: string,
     organizationId: string,
   ) {
-    const match = await this.matchesService.findOneById(matchId);
-    if (!match) {
-      throw new NotFoundException('Match not found');
+      const match = await this.matchesService.findOneById(matchId);
+      if (!match) {
+        throw new NotFoundException('Match not found');
+      }
+
+      if (match.competition && match.competition.organization.id !== organizationId) {
+        throw new ForbiddenException('You don\'t bellong to this organization');
+      }
+      const update = new Update();
+      update.date = new Date();
+      update.scorePrincipal = updateMatchDTO.scorePrincipal;
+      update.scoreVisitor = updateMatchDTO.scoreVisitor;
+      update.action = updateMatchDTO.action;
+      update.match = match;
+      return await this.updateRepository.save(update);
     }
 
-    if (match.competition.organization.id !== organizationId) {
-      throw new ForbiddenException("You don't bellong to this organization");
-    }
-    const update = new Update();
-    update.date = new Date();
-    update.scorePrincipal = updateMatchDTO.scorePrincipal;
-    update.scoreVisitor = updateMatchDTO.scoreVisitor;
-    update.action = updateMatchDTO.action;
-    update.match = match;
-  }
 }
