@@ -10,5 +10,5 @@ export class EditUserDTO {
   @ApiModelPropertyOptional({ example: 'LongBase64' })
   @IsBase64()
   @IsOptional()
-  image: string;
+  public image: string;
 }
