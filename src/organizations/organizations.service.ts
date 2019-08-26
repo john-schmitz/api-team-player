@@ -111,6 +111,7 @@ export class OrganizationsService {
   }
 
   async addEvent(createEventDTO: CreateEventDTO, organizationId: string) {
+    console.log(createEventDTO);
     const event = this.eventsRepository.create(createEventDTO);
     const organization = new Organization();
     organization.id = organizationId;
