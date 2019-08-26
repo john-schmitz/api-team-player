@@ -18,6 +18,9 @@ export class Event {
   @Column()
   public name: string;
 
+  @Column({ nullable: true })
+  public image: string;
+
   @Column()
   public place: string;
 

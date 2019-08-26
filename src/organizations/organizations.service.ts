@@ -115,6 +115,18 @@ export class OrganizationsService {
     const organization = new Organization();
     organization.id = organizationId;
     event.organization = organization;
+
+    if (createEventDTO.image) {
+      const res = await this.imageUploadService.uploadFunction(
+        createEventDTO.image,
+      );
+      const resjson = await res.json();
+      if (resjson.data && resjson.success && resjson.status === 200) {
+        event.image = resjson.data.link;
+      }
+    }
+
+
     await this.eventsRepository.save(event);
     return this.organizationRepository.findOne({
       where: { id: organizationId },
