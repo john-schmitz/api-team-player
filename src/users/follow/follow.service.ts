@@ -55,7 +55,7 @@ export class FollowService {
     if (!match) {
       throw new NotFoundException('Match not found.');
     }
-    const index = user.matches.indexOf(match);
+    const index = user.matches.findIndex(match_ => match_.id === match.id);
     if (index < -1) {
       throw new BadRequestException(
         'User does not follow the match specified.',
@@ -90,7 +90,7 @@ export class FollowService {
     userId: string,
     competitionId: string,
   ): Promise<User | undefined> {
-    const [user, competitions] = await Promise.all([
+    const [user, competition] = await Promise.all([
       this.userRepository.findUserAndMatchesById(userId),
       this.competitionService.findOneById(competitionId),
     ]);
@@ -98,13 +98,15 @@ export class FollowService {
     if (!user) {
       throw new NotFoundException('User not found.');
     }
-    if (!competitions) {
-      throw new NotFoundException('Match not found.');
+    if (!competition) {
+      throw new NotFoundException('Competition not found.');
     }
-    const index = user.competitions.indexOf(competitions);
+    const index = user.competitions.findIndex(
+      competition_ => competition_.id === competition.id,
+    );
     if (index < -1) {
       throw new BadRequestException(
-        'User does not follow the match specified.',
+        'User does not follow the competition specified.',
       );
     }
     user.matches.splice(index, 1);
@@ -148,7 +150,7 @@ export class FollowService {
       throw new NotFoundException('Event not found.');
     }
 
-    const index = user.events.indexOf(event);
+    const index = user.events.findIndex(event_ => event_.id === event.id);
     if (index < -1) {
       throw new BadRequestException(
         'User does not follow the event specified.',

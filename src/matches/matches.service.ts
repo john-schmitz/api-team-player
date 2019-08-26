@@ -19,7 +19,10 @@ export class MatchesService {
   }
 
   findByCompetitionId(id: string) {
-    return this.matchesRepository.find({ where: { competition: { id } } });
+    return this.matchesRepository.find({
+      relations: ['competition'],
+      where: { competition: { id } },
+    });
   }
 
   findAllWithCompetition() {

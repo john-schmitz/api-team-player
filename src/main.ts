@@ -28,9 +28,11 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
 
   SwaggerModule.setup('swagger', app, document);
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+    }),
+  );
   app.setGlobalPrefix('api');
   await app.listen(configService.PORT);
 }

@@ -79,4 +79,16 @@ export class MatchesController {
   ) {
     this.updatesService.add(updateMatchDTO, matchId, req.user.organization.id);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: UnauthorizedResponse,
+  })
+  @ApiOkResponse({ description: 'Ok' })
+  @ApiImplicitParam({ name: 'match_id' })
+  @Get(':match_id')
+  findById(@Param('match_id') matchId: string) {
+    return this.matchesService.findOneById(matchId);
+  }
 }
