@@ -30,7 +30,6 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
     }),
   );
   app.setGlobalPrefix('api');
