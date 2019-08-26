@@ -31,6 +31,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       response.organization = {
         id: user.organization.id,
         name: user.organization.name,
+        image: user.organization.image,
       };
     }
     return response;

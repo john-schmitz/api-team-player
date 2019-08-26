@@ -63,7 +63,10 @@ export class EventsController {
   })
   @ApiOkResponse({ description: 'Ok' })
   @Get(':event_id/competitions')
-  allCompetitions(@Param('event_id') eventId: string) {
-    return this.competitionsService.findByEnventId(eventId);
+  async allCompetitions(@Param('event_id') eventId: string) {
+    return {
+      event: await this.eventService.findOneById(eventId),
+      competitions: await this.competitionsService.findByEnventId(eventId),
+    };
   }
 }

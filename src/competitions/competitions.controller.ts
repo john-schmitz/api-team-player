@@ -56,7 +56,7 @@ export class CompetitionsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({ title: 'Get All Competitions' })
+  @ApiOperation({ title: 'Get matches in a competition' })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
     type: UnauthorizedResponse,
@@ -67,6 +67,8 @@ export class CompetitionsController {
   @ApiImplicitParam({ name: 'competition_id', type: String })
   @Get(':competition_id/matches')
   async allMatches(@Request() req, @Param('competition_id') competitionId) {
-    return {matches: await this.matchesService.findByCompetitionId(competitionId)};
+    return {
+      matches: await this.matchesService.findByCompetitionId(competitionId),
+    };
   }
 }

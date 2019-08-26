@@ -70,7 +70,7 @@ export class MatchesController {
   })
   @ApiOperation({ title: 'Send match update' })
   @ApiOkResponse({ description: 'Ok' })
-  @ApiImplicitParam({name: 'match_id'})
+  @ApiImplicitParam({ name: 'match_id' })
   @Post(':match_id/update')
   update(
     @Request() req,

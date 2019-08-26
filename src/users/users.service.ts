@@ -48,7 +48,10 @@ export class UsersService {
     return user.save();
   }
 
-  async createOrganization(userId: string, createOrganizationDTO: CreateOrganizationDTO) {
+  async createOrganization(
+    userId: string,
+    createOrganizationDTO: CreateOrganizationDTO,
+  ) {
     const [match, user] = await Promise.all([
       this.userRepository.findOne({
         where: { organization: { name: createOrganizationDTO.name } },
@@ -77,7 +80,7 @@ export class UsersService {
       if (resjson.data && resjson.success && resjson.status === 200) {
         createOrganizationDTO.image = resjson.data.link;
       } else {
-        delete  createOrganizationDTO.image;
+        delete createOrganizationDTO.image;
       }
     }
 
@@ -144,7 +147,7 @@ export class UsersService {
       if (resjson.data && resjson.success && resjson.status === 200) {
         editUserDTO.image = resjson.data.link;
       } else {
-        delete  editUserDTO.image;
+        delete editUserDTO.image;
       }
     }
     await this.userRepository.update({ id }, editUserDTO);
@@ -156,14 +159,10 @@ export class UsersService {
       this.userRepository.findUserAndMatchesById(userId),
       this.matchesService.findAllWithCompetition(),
     ]);
-
-    console.log(user.matches);
-    console.log(matches);
-    console.log(user.matches.indexOf(matches[0]));
     if (user.matches.length > 0) {
       return matches.map(match => ({
         ...match,
-        following: user.matches.some(match_ => match_.id == match.id),
+        following: user.matches.some(match_ => match_.id === match.id),
       }));
     } else {
       return matches.map(match => ({ ...match, following: false }));
@@ -173,12 +172,14 @@ export class UsersService {
   async allCompetitionsWithFollows(userId: string) {
     const [user, competitions] = await Promise.all([
       this.userRepository.findUserAndCompetitionsById(userId),
-      this.competitionsService.findAll(),
+      this.competitionsService.findAllWithEvent(),
     ]);
     if (user.competitions.length > 0) {
       return competitions.map(competition => ({
         ...competition,
-        following: user.competitions.some(competition_ => competition_.id == competition.id),
+        following: user.competitions.some(
+          competition_ => competition_.id === competition.id,
+        ),
       }));
     } else {
       return competitions.map(competition => ({
@@ -196,7 +197,7 @@ export class UsersService {
     if (user.events.length > 0) {
       return events.map(event => ({
         ...event,
-        following: user.events.some(event_ => event_.id == event.id),
+        following: user.events.some(event_ => event_.id === event.id),
       }));
     } else {
       return events.map(event => ({ ...event, following: false }));

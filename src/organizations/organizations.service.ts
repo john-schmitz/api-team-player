@@ -97,7 +97,7 @@ export class OrganizationsService {
       const resjson = await res.json();
       if (resjson.data && resjson.success && resjson.status === 200) {
         competition.image = resjson.data.link;
-      } 
+      }
     }
 
     const organization = this.organizationRepository.create({
@@ -126,7 +126,6 @@ export class OrganizationsService {
       }
     }
 
-
     await this.eventsRepository.save(event);
     return this.organizationRepository.findOne({
       where: { id: organizationId },
@@ -149,13 +148,17 @@ export class OrganizationsService {
 
     const [jsonPrincipal, jsonVisitor] = await Promise.all([
       resImagePrincipal.json(),
-      resImageVisitor.json()
+      resImageVisitor.json(),
     ]);
 
-    if (jsonPrincipal.data && jsonPrincipal.success && jsonPrincipal.status === 200) {
+    if (
+      jsonPrincipal.data &&
+      jsonPrincipal.success &&
+      jsonPrincipal.status === 200
+    ) {
       match.imagePrincipal = jsonPrincipal.data.link;
     }
-  
+
     if (jsonVisitor.data && jsonVisitor.success && jsonVisitor.status === 200) {
       match.imageVisitor = jsonVisitor.data.link;
     }

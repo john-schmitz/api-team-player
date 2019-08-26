@@ -15,7 +15,6 @@ export class CreateMatchDTO {
   @IsNotEmpty()
   readonly nameVisitor: string;
 
-
   @ApiModelProperty({ example: '6464' })
   @IsNotEmpty()
   @IsBase64()

@@ -29,7 +29,7 @@ export class UsersRepository extends Repository<User> {
     id: string,
   ): Promise<User | undefined> {
     return await this.findOne({
-      relations: ['competitions'],
+      relations: ['competitions', 'competitions.event'],
       where: { id },
     });
   }

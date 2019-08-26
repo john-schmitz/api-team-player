@@ -16,7 +16,7 @@ import { ImageUploadModule } from '../image-upload/image-upload.module';
     TypeOrmModule.forFeature([Match]),
     TypeOrmModule.forFeature([Competition]),
     MatchesModule,
-    ImageUploadModule
+    ImageUploadModule,
   ],
   providers: [OrganizationsService],
   controllers: [OrganizationsController],

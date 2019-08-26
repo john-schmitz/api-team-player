@@ -31,4 +31,13 @@ export class CompetitionsService {
       },
     });
   }
+
+  findAllWithEvent(): Promise<Competition[]> {
+    return this.competitionsRepository.find({
+      relations: ['organization', 'event'],
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+  }
 }

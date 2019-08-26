@@ -29,6 +29,7 @@ export class AuthService {
       payload.organization = {
         id: user.organization.id,
         name: user.organization.name,
+        image: user.organization.image,
       };
     }
     return this.jwtService.sign(payload);

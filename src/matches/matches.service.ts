@@ -24,7 +24,7 @@ export class MatchesService {
 
   findAllWithCompetition() {
     return this.matchesRepository.find({
-      relations: ["competition"]
+      relations: ['competition'],
     });
   }
 }

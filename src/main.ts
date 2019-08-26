@@ -8,7 +8,7 @@ import { json } from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(json({ limit: '50mb'}));
+  app.use(json({ limit: '50mb' }));
   applyMiddleware(app, UtilMiddleware);
 
   const configService = app.get('ConfigService');
