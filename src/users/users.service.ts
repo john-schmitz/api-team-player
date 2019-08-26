@@ -96,15 +96,18 @@ export class UsersService {
     const user = await this.userRepository.findUserAndAllFollows(id);
     if (user.events && user.events.length > 0) {
       for (const event of user.events) {
-        for (const competition of event.competitions) {
-          for (const match of competition.matches) {
-            feed.push(
-              ...(await this.updatedsRepository.find({
-                where: { match },
-                relations: ['match'],
-                select: ['date', 'scorePrincipal', 'scoreVisitor', 'action'],
-              })),
-            );
+        if (event.competitions && event.competitions.length > 0) {
+          for (const competition of event.competitions) {
+            if (competition.matches && competition.matches.length > 0) {
+              for (const match of competition.matches) {
+                feed.push(
+                  ...(await this.updatedsRepository.find({
+                    where: { match: { id: match.id } },
+                    relations: ['match'],
+                  })),
+                );
+              }
+            }
           }
         }
       }
@@ -112,14 +115,15 @@ export class UsersService {
 
     if (user.competitions && user.competitions.length > 0) {
       for (const competition of user.competitions) {
-        for (const match of competition.matches) {
-          feed.push(
-            ...(await this.updatedsRepository.find({
-              where: { match },
-              relations: ['match'],
-              select: ['date', 'scorePrincipal', 'scoreVisitor', 'action'],
-            })),
-          );
+        if (competition.matches && competition.matches.length > 0) {
+          for (const match of competition.matches) {
+            feed.push(
+              ...(await this.updatedsRepository.find({
+                where: { match: { id: match.id } },
+                relations: ['match'],
+              })),
+            );
+          }
         }
       }
     }
@@ -128,9 +132,8 @@ export class UsersService {
       for (const match of user.matches) {
         feed.push(
           ...(await this.updatedsRepository.find({
-            where: { match },
+            where: { match: { id: match.id } },
             relations: ['match'],
-            select: ['date', 'scorePrincipal', 'scoreVisitor', 'action'],
           })),
         );
       }

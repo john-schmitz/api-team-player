@@ -61,7 +61,7 @@ export class OrganizationsController {
         organizationId,
       );
     }
-    throw new BadRequestException('You don\'t bellong to this organization =(');
+    throw new BadRequestException("You don't bellong to this organization =(");
   }
 
   @ApiUnauthorizedResponse({
@@ -109,7 +109,7 @@ export class OrganizationsController {
     if (req.user.organization && req.user.organization.id === organizationId) {
       return this.organizationsService.addEvent(createEventDTO, organizationId);
     }
-    throw new BadRequestException('You don\'t bellong to this organization =(');
+    throw new BadRequestException("You don't bellong to this organization =(");
   }
 
   @ApiUnauthorizedResponse({
@@ -159,7 +159,7 @@ export class OrganizationsController {
     if (req.user.organization && req.user.organization.id === organizationId) {
       return this.organizationsService.addMatch(createMatchDTO, competitionId);
     }
-    throw new BadRequestException('You don\'t bellong to this organization =(');
+    throw new BadRequestException("You don't bellong to this organization =(");
   }
 
   @ApiUnauthorizedResponse({

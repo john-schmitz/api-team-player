@@ -26,7 +26,7 @@ export class UpdatesService {
     }
 
     if (match.competition.organization.id !== organizationId) {
-      throw new ForbiddenException('You don\'t bellong to this organization');
+      throw new ForbiddenException("You don't bellong to this organization");
     }
     const update = new Update();
     update.date = new Date();
