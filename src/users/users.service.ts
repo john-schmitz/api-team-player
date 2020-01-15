@@ -73,7 +73,7 @@ export class UsersService {
     }
 
     if (createOrganizationDTO.image) {
-      const res = await this.imageUploadService.uploadFunction(
+      const res = await this.imageUploadService.uploadImage(
         createOrganizationDTO.image,
       );
       const resjson = await res.json();
@@ -144,7 +144,7 @@ export class UsersService {
 
   async update(id: string, editUserDTO: EditUserDTO) {
     if (editUserDTO.image) {
-      const res = await this.imageUploadService.uploadFunction(
+      const res = await this.imageUploadService.uploadImage(
         editUserDTO.image,
       );
       const resjson = await res.json();

@@ -91,7 +91,7 @@ export class OrganizationsService {
     }
 
     if (createCompetitionDTO.image) {
-      const res = await this.imageUploadService.uploadFunction(
+      const res = await this.imageUploadService.uploadImage(
         createCompetitionDTO.image,
       );
       const resjson = await res.json();
@@ -117,7 +117,7 @@ export class OrganizationsService {
     event.organization = organization;
 
     if (createEventDTO.image) {
-      const res = await this.imageUploadService.uploadFunction(
+      const res = await this.imageUploadService.uploadImage(
         createEventDTO.image,
       );
       const resjson = await res.json();
@@ -142,8 +142,8 @@ export class OrganizationsService {
       throw new NotFoundException('Competition not found');
     }
     const [resImagePrincipal, resImageVisitor] = await Promise.all([
-      this.imageUploadService.uploadFunction(createMatchDTO.imagePrincipal),
-      this.imageUploadService.uploadFunction(createMatchDTO.imageVisitor),
+      this.imageUploadService.uploadImage(createMatchDTO.imagePrincipal),
+      this.imageUploadService.uploadImage(createMatchDTO.imageVisitor),
     ]);
 
     const [jsonPrincipal, jsonVisitor] = await Promise.all([

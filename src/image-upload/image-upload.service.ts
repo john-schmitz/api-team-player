@@ -5,7 +5,7 @@ import { ImgurService } from './imgur.service';
 export class ImageUploadService {
   constructor(private readonly imageProvider: ImgurService) {}
 
-  async uploadFunction(image: string) {
+  async uploadImage(image: string) {
     return this.imageProvider.uploadImage(image, 'base64');
   }
 }
